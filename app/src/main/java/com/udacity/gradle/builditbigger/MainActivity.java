@@ -46,8 +46,6 @@ public class MainActivity extends ActionBarActivity {
         Toast.makeText(this, "derp", Toast.LENGTH_SHORT).show();
     }
 
-    public void launchLibraryActivity(View view){
-        Intent myIntent = new Intent(this, jokes.class);
-        startActivity(myIntent);
-    }
+
+
 }

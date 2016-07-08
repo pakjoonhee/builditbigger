@@ -21,9 +21,11 @@ public class jokesFragment extends Fragment{
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View root = inflater.inflate(R.layout.fragment_image, container, false);
+        Bundle bundle = getActivity().getIntent().getExtras();
+        String joke = bundle.getString("joke");
         Joker jokeIntent = new Joker();
         TextView javaJoke = (TextView)root.findViewById(R.id.java_joke);
-        javaJoke.setText(jokeIntent.getJoke());
+        javaJoke.setText(joke);
         return root;
 
     }

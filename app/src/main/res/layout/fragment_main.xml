@@ -36,7 +36,6 @@
         android:layout_below="@+id/the_joke"
         android:text="@string/button_text"
         android:id="@+id/android_joke_button"
-        android:onClick="launchLibraryActivity"
         />
 
     <com.google.android.gms.ads.AdView

@@ -1,6 +1,7 @@
 package com.udacity.gradle.builditbigger;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.support.v4.app.Fragment;
 import android.os.Bundle;
@@ -13,6 +14,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.joonheepak.myapplication.backend.myApi.MyApi;
+import com.example.myandroidlibrary.jokes;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
 import com.google.api.client.extensions.android.http.AndroidHttp;
@@ -22,12 +24,14 @@ import com.google.api.client.googleapis.services.GoogleClientRequestInitializer;
 import com.jokes.Joker;
 
 import java.io.IOException;
+import java.util.concurrent.ExecutionException;
 
 
 /**
  * A placeholder fragment containing a simple view.
  */
 public class MainActivityFragment extends Fragment {
+    String retrievedJoke;
 
     public MainActivityFragment() {
     }
@@ -37,13 +41,19 @@ public class MainActivityFragment extends Fragment {
                              Bundle savedInstanceState) {
         View root = inflater.inflate(R.layout.fragment_main, container, false);
         Button jokeButton = (Button)root.findViewById(R.id.joke_button);
-        Button androidJokebutton = (Button)root.findViewById(R.id.android_joke_button);
         final TextView joke = (TextView)root.findViewById(R.id.the_joke);
         final Joker myJoker = new Joker();
         jokeButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 joke.setText(myJoker.getJoke());
+            }
+        });
+        Button androidJokebutton = (Button)root.findViewById(R.id.android_joke_button);
+        androidJokebutton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                launchLibraryActivity();
             }
         });
 
@@ -56,8 +66,21 @@ public class MainActivityFragment extends Fragment {
                 .addTestDevice(AdRequest.DEVICE_ID_EMULATOR)
                 .build();
         mAdView.loadAd(adRequest);
-        new EndpointsAsyncTask().execute(new Pair<Context, String>(getActivity(), "Manfred"));
+        try {
+            retrievedJoke = new EndpointsAsyncTask().execute(new Pair<Context, String>(getActivity(), "Manfred")).get();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        } catch (ExecutionException e) {
+            e.printStackTrace();
+        }
+
         return root;
+    }
+
+    public void launchLibraryActivity(){
+        Intent myIntent = new Intent(getActivity(), jokes.class);
+        myIntent.putExtra("joke", retrievedJoke);
+        startActivity(myIntent);
     }
 
     static class EndpointsAsyncTask extends AsyncTask<Pair<Context, String>, Void, String> {
@@ -96,7 +119,7 @@ public class MainActivityFragment extends Fragment {
 
         @Override
         protected void onPostExecute(String result) {
-            Toast.makeText(context, result, Toast.LENGTH_LONG).show();
+            super.onPostExecute(result);
         }
     }
 }
