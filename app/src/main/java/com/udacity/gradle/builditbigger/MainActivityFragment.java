@@ -58,14 +58,6 @@ public class MainActivityFragment extends Fragment {
         });
 
 
-        AdView mAdView = (AdView) root.findViewById(R.id.adView);
-        // Create an ad request. Check logcat output for the hashed device ID to
-        // get test ads on a physical device. e.g.
-        // "Use AdRequest.Builder.addTestDevice("ABCDEF012345") to get test ads on this device."
-        AdRequest adRequest = new AdRequest.Builder()
-                .addTestDevice(AdRequest.DEVICE_ID_EMULATOR)
-                .build();
-        mAdView.loadAd(adRequest);
         try {
             retrievedJoke = new EndpointsAsyncTask().execute(new Pair<Context, String>(getActivity(), "Manfred")).get();
         } catch (InterruptedException e) {
@@ -73,6 +65,11 @@ public class MainActivityFragment extends Fragment {
         } catch (ExecutionException e) {
             e.printStackTrace();
         }
+        AdView mAdView = (AdView) root.findViewById(R.id.adView);
+        AdRequest adRequest = new AdRequest.Builder()
+                .addTestDevice(AdRequest.DEVICE_ID_EMULATOR)
+                .build();
+        mAdView.loadAd(adRequest);
 
         return root;
     }
