@@ -15,7 +15,7 @@ import java.util.concurrent.TimeUnit;
  */
 public class AsyncTest extends AndroidTestCase
 {
-    MainActivityFragment.EndpointsAsyncTask task;
+    EndpointsAsyncTask task;
     String result;
     @Mock Context mockContext;
 
@@ -24,7 +24,7 @@ public class AsyncTest extends AndroidTestCase
         super.setUp();
 
         result = null;
-        task = new MainActivityFragment.EndpointsAsyncTask(){
+        task = new EndpointsAsyncTask(){
             @Override
             protected void onPostExecute(String joke){
 
