@@ -15,10 +15,6 @@ public class jokes extends AppCompatActivity {
         setContentView(R.layout.activity_jokes);
 
     }
-
-    public void launchLibraryActivity(View view){
-        Intent myIntent = new Intent(this, jokes.class);
-        startActivity(myIntent);
-    }
+    
 }
 
