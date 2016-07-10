@@ -15,6 +15,6 @@ public class jokes extends AppCompatActivity {
         setContentView(R.layout.activity_jokes);
 
     }
-    
+
 }
 
