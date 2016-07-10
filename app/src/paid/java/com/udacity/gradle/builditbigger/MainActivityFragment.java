@@ -15,8 +15,6 @@ import android.widget.Toast;
 
 import com.example.joonheepak.myapplication.backend.myApi.MyApi;
 import com.example.myandroidlibrary.jokes;
-import com.google.android.gms.ads.AdRequest;
-import com.google.android.gms.ads.AdView;
 import com.google.api.client.extensions.android.http.AndroidHttp;
 import com.google.api.client.extensions.android.json.AndroidJsonFactory;
 import com.google.api.client.googleapis.services.AbstractGoogleClientRequest;
